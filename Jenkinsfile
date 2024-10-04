@@ -10,15 +10,16 @@ pipeline {
             }
             post {
                 success {
-                    echo 'Archiving the artefact'
+                    echo 'Started arhiving war file'
                     archiveArtifacts artifacts: '**/*.war'
+                    echo 'finished arhiving war file'
                 }
             }
         }
 
         stage('Create Tomcat Docker Image') {
             steps{
-                sh 'docker build . -t tomcatsamplewebapp:${env.BUILD_ID}' 
+                bat 'docker build . -t tomcatsamplewebapp:${env.BUILD_ID}' 
             }
 
         }
