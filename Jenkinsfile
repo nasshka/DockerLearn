@@ -1,13 +1,11 @@
 pipeline {
-    agent { 
-                label 'Ubuntu_node'
-            }
+    agent any
    
     stages {
         
         stage('Build application') {
             steps {
-                sh 'mvn -f DockerTomcat/pom.xml clean package'
+                sh 'mvn -f pom.xml clean package'
                 
             }
             post {
