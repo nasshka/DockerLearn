@@ -7,7 +7,7 @@ pipeline {
         
         stage('Build application') {
             steps {
-                sh 'mvn clean package'
+                sh 'mvn -f DockerTomcat/pom.xml clean package'
                 
             }
             post {
@@ -17,16 +17,12 @@ pipeline {
                 }
             }
         }
-        stage('Push app to Server'){
-            steps {
-                timeout(time:5, unit:'DAYS'){ 
-                    input message: 'Approve for deployement?'    
-                }
-            
-                build job: 'pushWARtoTomcat'    
-                
+
+        stage('Create Tomcat Docker Image') {
+            steps{
+                sh 'docker build . -t tomcatsamplewebapp:${env.BUILD_ID}' 
             }
-            
+
         }
             
     }
