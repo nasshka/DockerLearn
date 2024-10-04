@@ -5,7 +5,7 @@ pipeline {
         
         stage('Build application') {
             steps {
-                sh 'mvn -f pom.xml clean package'
+                bat 'mvn -f pom.xml clean package'
                 
             }
             post {
